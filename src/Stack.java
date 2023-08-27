@@ -4,7 +4,7 @@ class StackException extends RuntimeException{
 	}
 }
 
-public class Stack {
+public class Stack implements StackADT {
 	private Object[] S;
 	private int top;
 	private int capacity;
@@ -17,6 +17,10 @@ public class Stack {
 		top = -1;
 	}
 
+	/* 
+	 * Stack myStack = new Stack();
+	 * Stack myStack = new Stack(100000000);
+	 */
 	public Stack(){
 		this(DEFAULT_SIZE);
 	}
@@ -26,15 +30,38 @@ public class Stack {
 	 */
 	public boolean isEmpty(){
 		// TODO
-		return false;
+		return (top == -1);
+
+		// return (top == -1) ? true : false; 
+
+		
+		/* 
+		switch (top) {
+		case -1 :
+			return true;
+		default :
+			return false;
+		}
+		*/
+		
+		
+	/*
+		if (top < 0)
+		{
+			return true;
+		}
+		else {
+			return false;
+		}
+	*/	
+		
 	}
 	
 	/**
 	 * @return a count of the number of elements in the stack
 	 */
 	public int size(){
-		// TODO
-		return -1;
+		return top + 1;
 	}
 	
 
@@ -42,8 +69,18 @@ public class Stack {
 	 * 
 	 * @param e the object to add to the top of the stack
 	 */
-	public void push(Object e){
-		// TODO
+	public void push(Object e) throws StackException {
+		if (capacity == size()) {
+			throw new StackException("push: sorry, stack full");
+		}
+		else {
+		int nextPosition = top + 1;
+		S[nextPosition] = e;
+		// top = top + 1;
+		top++;
+		}
+		
+		// check if it's at capacity
 	}
 	
 	/** Removes an element from the top of the stack
@@ -52,8 +89,14 @@ public class Stack {
 	 * @throws StackException if the stack is empty
 	 */
 	public Object pop() throws StackException{
-		// TODO
-		return null;
+		if (isEmpty()) {
+			throw new StackException("pop: sorry, empty stack.");
+		} 
+		else {
+		Object myObject = S[top];
+		top--;
+		return myObject;
+		}
 	}
 	
 	/** Returns object at the top of the stack
@@ -62,8 +105,12 @@ public class Stack {
 	 * @throws StackException is the stack is empty
 	 */
 	public Object top() throws StackException{
-		// TODO
-		return null;
+		if (isEmpty()) {
+			throw new StackException("top: sorry, empty stack.");
+		} 
+		else {
+		return S[top];
+		}
 	}
 	
 	/** A helper method to pretty-print the elements in the stack
