@@ -6,15 +6,15 @@ class StackException extends RuntimeException{
 
 public class Stack implements StackADT {
 	private Object[] S;
-	private int top;
+	private int currentIdx;
 	private int capacity;
 	
 	private static int DEFAULT_SIZE = 100;
 	
-	public Stack(int size){
-		capacity = size;
-		S = new Object[size];
-		top = -1;
+	public Stack(int maxCapacity){
+		capacity = maxCapacity;
+		S = new Object[maxCapacity];
+		currentIdx = -1;
 	}
 
 	/* 
@@ -77,7 +77,7 @@ public class Stack implements StackADT {
 		StringBuffer buf = new StringBuffer("[");
 		if(size() > 0)
 			buf.append(S[0]);
-		for(int i = 1; i <= top;i++){
+		for(int i = 1; i <= currentIdx;i++){
 			buf.append(", " + S[i]);
 		}
 		buf.append("]");
