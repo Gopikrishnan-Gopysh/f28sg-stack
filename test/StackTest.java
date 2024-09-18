@@ -30,5 +30,28 @@ public class StackTest {
 	public void exampleTest() {
 		assertEquals(0, st.size());
 	}
+	@Test
+	public void testPush() {
+		st.push("A");
+		st.push("B");
+		System.out.println(st);
+		assertEquals(2,st.size());
 
+	}
+	@Test
+	public void testpop() {
+		st.push("A");
+		st.push("B");
+		//assertEquals("B" st.pop());
+		st.pop();
+		assertEquals("A",st.pop());
+	}
+	@Test
+	public void testtop() {
+		st.push("A");
+		st.push("B");
+
+		assertEquals("B",st.top());
+		assertEquals("B",st.top());
+	}
 }

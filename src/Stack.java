@@ -6,7 +6,7 @@ class StackException extends RuntimeException{
 
 public class Stack implements StackADT {
 	private Object[] S;
-	private int currentIdx;
+	private int top;
 	private int capacity;
 	
 	private static int DEFAULT_SIZE = 100;
@@ -14,7 +14,7 @@ public class Stack implements StackADT {
 	public Stack(int maxCapacity){
 		capacity = maxCapacity;
 		S = new Object[maxCapacity];
-		currentIdx = -1;
+		top = -1;
 	}
 
 	/* 
@@ -30,7 +30,7 @@ public class Stack implements StackADT {
 	 */
 	public boolean isEmpty(){
 		// TODO
-		return false;	
+		return top<0;	
 	}
 	
 	/**
@@ -38,7 +38,7 @@ public class Stack implements StackADT {
 	 */
 	public int size(){
 		// TODO
-		return -1;
+		return top+1;
 	}
 	
 
@@ -48,6 +48,9 @@ public class Stack implements StackADT {
 	 */
 	public void push(Object e) throws StackException {
 		// TODO
+	if(size()==capacity)
+		throw new StackException ("stack is full");
+	S[++top] = e;
 	}
 	
 	/** Removes an element from the top of the stack
@@ -56,8 +59,9 @@ public class Stack implements StackADT {
 	 * @throws StackException if the stack is empty
 	 */
 	public Object pop() throws StackException{
-		// TODO
-		return null;
+		if(isEmpty())
+			throw new StackException("stack is empty");
+		return S[top--];
 	}
 	
 	/** Returns object at the top of the stack
@@ -67,7 +71,7 @@ public class Stack implements StackADT {
 	 */
 	public Object top() throws StackException{
 		// TODO
-		return null;
+		return S[top];
 	}
 	
 	/** A helper method to pretty-print the elements in the stack
@@ -77,7 +81,7 @@ public class Stack implements StackADT {
 		StringBuffer buf = new StringBuffer("[");
 		if(size() > 0)
 			buf.append(S[0]);
-		for(int i = 1; i <= currentIdx;i++){
+		for(int i = 1; i <= top;i++){
 			buf.append(", " + S[i]);
 		}
 		buf.append("]");
